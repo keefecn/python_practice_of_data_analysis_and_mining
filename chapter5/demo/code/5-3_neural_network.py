@@ -1,17 +1,17 @@
 #-*- coding: utf-8 -*-
-#Ê¹ÓÃÉñ¾­ÍøÂçËã·¨Ô¤²âÏúÁ¿¸ßµÍ
+#ä½¿ç”¨ç¥ç»ç½‘ç»œç®—æ³•é¢„æµ‹é”€é‡é«˜ä½
 
 import pandas as pd
 
-#²ÎÊı³õÊ¼»¯
+#å‚æ•°åˆå§‹åŒ–
 inputfile = '../data/sales_data.xls'
-data = pd.read_excel(inputfile, index_col = u'ĞòºÅ') #µ¼ÈëÊı¾İ
+data = pd.read_excel(inputfile, index_col = u'åºå·') #å¯¼å…¥æ•°æ®
 
-#Êı¾İÊÇÀà±ğ±êÇ©£¬Òª½«Ëü×ª»»ÎªÊı¾İ
-#ÓÃ1À´±íÊ¾¡°ºÃ¡±¡¢¡°ÊÇ¡±¡¢¡°¸ß¡±ÕâÈı¸öÊôĞÔ£¬ÓÃ0À´±íÊ¾¡°»µ¡±¡¢¡°·ñ¡±¡¢¡°µÍ¡±
-data[data == u'ºÃ'] = 1
-data[data == u'ÊÇ'] = 1
-data[data == u'¸ß'] = 1
+#æ•°æ®æ˜¯ç±»åˆ«æ ‡ç­¾ï¼Œè¦å°†å®ƒè½¬æ¢ä¸ºæ•°æ®
+#ç”¨1æ¥è¡¨ç¤ºâ€œå¥½â€ã€â€œæ˜¯â€ã€â€œé«˜â€è¿™ä¸‰ä¸ªå±æ€§ï¼Œç”¨0æ¥è¡¨ç¤ºâ€œåâ€ã€â€œå¦â€ã€â€œä½â€
+data[data == u'å¥½'] = 1
+data[data == u'æ˜¯'] = 1
+data[data == u'é«˜'] = 1
 data[data != 1] = 0
 x = data.iloc[:,:3].as_matrix().astype(int)
 y = data.iloc[:,3].as_matrix().astype(int)
@@ -19,19 +19,19 @@ y = data.iloc[:,3].as_matrix().astype(int)
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation
 
-model = Sequential() #½¨Á¢Ä£ĞÍ
+model = Sequential() #å»ºç«‹æ¨¡å‹
 model.add(Dense(input_dim = 3, output_dim = 10))
-model.add(Activation('relu')) #ÓÃreluº¯Êı×÷Îª¼¤»îº¯Êı£¬ÄÜ¹»´ó·ùÌá¹©×¼È·¶È
+model.add(Activation('relu')) #ç”¨reluå‡½æ•°ä½œä¸ºæ¿€æ´»å‡½æ•°ï¼Œèƒ½å¤Ÿå¤§å¹…æä¾›å‡†ç¡®åº¦
 model.add(Dense(input_dim = 10, output_dim = 1))
-model.add(Activation('sigmoid')) #ÓÉÓÚÊÇ0-1Êä³ö£¬ÓÃsigmoidº¯Êı×÷Îª¼¤»îº¯Êı
+model.add(Activation('sigmoid')) #ç”±äºæ˜¯0-1è¾“å‡ºï¼Œç”¨sigmoidå‡½æ•°ä½œä¸ºæ¿€æ´»å‡½æ•°
 
 model.compile(loss = 'binary_crossentropy', optimizer = 'adam', class_mode = 'binary')
-#±àÒëÄ£ĞÍ¡£ÓÉÓÚÎÒÃÇ×öµÄÊÇ¶şÔª·ÖÀà£¬ËùÒÔÎÒÃÇÖ¸¶¨ËğÊ§º¯ÊıÎªbinary_crossentropy£¬ÒÔ¼°Ä£Ê½Îªbinary
-#ÁíÍâ³£¼ûµÄËğÊ§º¯Êı»¹ÓĞmean_squared_error¡¢categorical_crossentropyµÈ£¬ÇëÔÄ¶Á°ïÖúÎÄ¼ş¡£
-#Çó½â·½·¨ÎÒÃÇÖ¸¶¨ÓÃadam£¬»¹ÓĞsgd¡¢rmspropµÈ¿ÉÑ¡
+#ç¼–è¯‘æ¨¡å‹ã€‚ç”±äºæˆ‘ä»¬åšçš„æ˜¯äºŒå…ƒåˆ†ç±»ï¼Œæ‰€ä»¥æˆ‘ä»¬æŒ‡å®šæŸå¤±å‡½æ•°ä¸ºbinary_crossentropyï¼Œä»¥åŠæ¨¡å¼ä¸ºbinary
+#å¦å¤–å¸¸è§çš„æŸå¤±å‡½æ•°è¿˜æœ‰mean_squared_errorã€categorical_crossentropyç­‰ï¼Œè¯·é˜…è¯»å¸®åŠ©æ–‡ä»¶ã€‚
+#æ±‚è§£æ–¹æ³•æˆ‘ä»¬æŒ‡å®šç”¨adamï¼Œè¿˜æœ‰sgdã€rmspropç­‰å¯é€‰
 
-model.fit(x, y, nb_epoch = 1000, batch_size = 10) #ÑµÁ·Ä£ĞÍ£¬Ñ§Ï°Ò»Ç§´Î
-yp = model.predict_classes(x).reshape(len(y)) #·ÖÀàÔ¤²â
+model.fit(x, y, nb_epoch = 1000, batch_size = 10) #è®­ç»ƒæ¨¡å‹ï¼Œå­¦ä¹ ä¸€åƒæ¬¡
+yp = model.predict_classes(x).reshape(len(y)) #åˆ†ç±»é¢„æµ‹
 
-from cm_plot import * #µ¼Èë×ÔĞĞ±àĞ´µÄ»ìÏı¾ØÕó¿ÉÊÓ»¯º¯Êı
-cm_plot(y,yp).show() #ÏÔÊ¾»ìÏı¾ØÕó¿ÉÊÓ»¯½á¹û
+from cm_plot import * #å¯¼å…¥è‡ªè¡Œç¼–å†™çš„æ··æ·†çŸ©é˜µå¯è§†åŒ–å‡½æ•°
+cm_plot(y,yp).show() #æ˜¾ç¤ºæ··æ·†çŸ©é˜µå¯è§†åŒ–ç»“æœ

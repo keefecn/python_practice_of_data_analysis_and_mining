@@ -1,17 +1,17 @@
 def cm_plot(y, yp):
   
-  from sklearn.metrics import confusion_matrix #µ¼Èë»ìÏı¾ØÕóº¯Êı
+  from sklearn.metrics import confusion_matrix #å¯¼å…¥æ··æ·†çŸ©é˜µå‡½æ•°
 
-  cm = confusion_matrix(y, yp) #»ìÏı¾ØÕó
+  cm = confusion_matrix(y, yp) #æ··æ·†çŸ©é˜µ
   
-  import matplotlib.pyplot as plt #µ¼Èë×÷Í¼¿â
-  plt.matshow(cm, cmap=plt.cm.Greens) #»­»ìÏı¾ØÕóÍ¼£¬ÅäÉ«·ç¸ñÊ¹ÓÃcm.Greens£¬¸ü¶à·ç¸ñÇë²Î¿¼¹ÙÍø¡£
-  plt.colorbar() #ÑÕÉ«±êÇ©
+  import matplotlib.pyplot as plt #å¯¼å…¥ä½œå›¾åº“
+  plt.matshow(cm, cmap=plt.cm.Greens) #ç”»æ··æ·†çŸ©é˜µå›¾ï¼Œé…è‰²é£æ ¼ä½¿ç”¨cm.Greensï¼Œæ›´å¤šé£æ ¼è¯·å‚è€ƒå®˜ç½‘ã€‚
+  plt.colorbar() #é¢œè‰²æ ‡ç­¾
   
-  for x in range(len(cm)): #Êı¾İ±êÇ©
+  for x in range(len(cm)): #æ•°æ®æ ‡ç­¾
     for y in range(len(cm)):
       plt.annotate(cm[x,y], xy=(x, y), horizontalalignment='center', verticalalignment='center')
   
-  plt.ylabel('True label') #×ø±êÖá±êÇ©
-  plt.xlabel('Predicted label') #×ø±êÖá±êÇ©
+  plt.ylabel('True label') #åæ ‡è½´æ ‡ç­¾
+  plt.xlabel('Predicted label') #åæ ‡è½´æ ‡ç­¾
   return plt

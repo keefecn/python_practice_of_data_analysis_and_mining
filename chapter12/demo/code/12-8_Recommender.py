@@ -1,21 +1,21 @@
 import numpy as np
 
-def Jaccard(a, b): #×Ô¶¨Òå½Ü¿¨µÂÏàËÆÏµÊıº¯Êı£¬½ö¶Ô0-1¾ØÕóÓĞĞ§
+def Jaccard(a, b): #è‡ªå®šä¹‰æ°å¡å¾·ç›¸ä¼¼ç³»æ•°å‡½æ•°ï¼Œä»…å¯¹0-1çŸ©é˜µæœ‰æ•ˆ
   return 1.0*(a*b).sum()/(a+b-a*b).sum()
 
 class Recommender():
   
-  sim = None #ÏàËÆ¶È¾ØÕó
+  sim = None #ç›¸ä¼¼åº¦çŸ©é˜µ
   
-  def similarity(self, x, distance): #¼ÆËãÏàËÆ¶È¾ØÕóµÄº¯Êı
+  def similarity(self, x, distance): #è®¡ç®—ç›¸ä¼¼åº¦çŸ©é˜µçš„å‡½æ•°
     y = np.ones((len(x), len(x)))
     for i in range(len(x)):
       for j in range(len(x)):
         y[i,j] = distance(x[i], x[j])
     return y
   
-  def fit(self, x, distance = Jaccard): #ÑµÁ·º¯Êı
+  def fit(self, x, distance = Jaccard): #è®­ç»ƒå‡½æ•°
     self.sim = self.similarity(x, distance)
   
-  def recommend(self, a): #ÍÆ¼öº¯Êı
+  def recommend(self, a): #æ¨èå‡½æ•°
     return np.dot(self.sim, a)*(1-a)

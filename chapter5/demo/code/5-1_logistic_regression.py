@@ -1,8 +1,8 @@
 #-*- coding: utf-8 -*-
-#Âß¼­»Ø¹é ×Ô¶¯½¨Ä£
+#é€»è¾‘å›å½’ è‡ªåŠ¨å»ºæ¨¡
 import pandas as pd
 
-#²ÎÊı³õÊ¼»¯
+#å‚æ•°åˆå§‹åŒ–
 filename = '../data/bankloan.xls'
 data = pd.read_excel(filename)
 x = data.iloc[:,:8].as_matrix()
@@ -10,14 +10,14 @@ y = data.iloc[:,8].as_matrix()
 
 from sklearn.linear_model import LogisticRegression as LR
 from sklearn.linear_model import RandomizedLogisticRegression as RLR 
-rlr = RLR() #½¨Á¢Ëæ»úÂß¼­»Ø¹éÄ£ĞÍ£¬É¸Ñ¡±äÁ¿
-rlr.fit(x, y) #ÑµÁ·Ä£ĞÍ
-rlr.get_support() #»ñÈ¡ÌØÕ÷É¸Ñ¡½á¹û£¬Ò²¿ÉÒÔÍ¨¹ı.scores_·½·¨»ñÈ¡¸÷¸öÌØÕ÷µÄ·ÖÊı
-print(u'Í¨¹ıËæ»úÂß¼­»Ø¹éÄ£ĞÍÉ¸Ñ¡ÌØÕ÷½áÊø¡£')
-print(u'ÓĞĞ§ÌØÕ÷Îª£º%s' % ','.join(data.columns[rlr.get_support()]))
-x = data[data.columns[rlr.get_support()]].as_matrix() #É¸Ñ¡ºÃÌØÕ÷
+rlr = RLR() #å»ºç«‹éšæœºé€»è¾‘å›å½’æ¨¡å‹ï¼Œç­›é€‰å˜é‡
+rlr.fit(x, y) #è®­ç»ƒæ¨¡å‹
+rlr.get_support() #è·å–ç‰¹å¾ç­›é€‰ç»“æœï¼Œä¹Ÿå¯ä»¥é€šè¿‡.scores_æ–¹æ³•è·å–å„ä¸ªç‰¹å¾çš„åˆ†æ•°
+print(u'é€šè¿‡éšæœºé€»è¾‘å›å½’æ¨¡å‹ç­›é€‰ç‰¹å¾ç»“æŸã€‚')
+print(u'æœ‰æ•ˆç‰¹å¾ä¸ºï¼š%s' % ','.join(data.columns[rlr.get_support()]))
+x = data[data.columns[rlr.get_support()]].as_matrix() #ç­›é€‰å¥½ç‰¹å¾
 
-lr = LR() #½¨Á¢Âß¼­»õ¹ñÄ£ĞÍ
-lr.fit(x, y) #ÓÃÉ¸Ñ¡ºóµÄÌØÕ÷Êı¾İÀ´ÑµÁ·Ä£ĞÍ
-print(u'Âß¼­»Ø¹éÄ£ĞÍÑµÁ·½áÊø¡£')
-print(u'Ä£ĞÍµÄÆ½¾ùÕıÈ·ÂÊÎª£º%s' % lr.score(x, y)) #¸ø³öÄ£ĞÍµÄÆ½¾ùÕıÈ·ÂÊ£¬±¾ÀıÎª81.4%
+lr = LR() #å»ºç«‹é€»è¾‘è´§æŸœæ¨¡å‹
+lr.fit(x, y) #ç”¨ç­›é€‰åçš„ç‰¹å¾æ•°æ®æ¥è®­ç»ƒæ¨¡å‹
+print(u'é€»è¾‘å›å½’æ¨¡å‹è®­ç»ƒç»“æŸã€‚')
+print(u'æ¨¡å‹çš„å¹³å‡æ­£ç¡®ç‡ä¸ºï¼š%s' % lr.score(x, y)) #ç»™å‡ºæ¨¡å‹çš„å¹³å‡æ­£ç¡®ç‡ï¼Œæœ¬ä¾‹ä¸º81.4%

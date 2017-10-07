@@ -1,37 +1,37 @@
 #-*- coding: utf-8 -*-
 import pandas as pd
 
-inputfile = '../data/moment.csv' #Êı¾İÎÄ¼ş
-outputfile1 = '../tmp/cm_train.xls' #ÑµÁ·Ñù±¾»ìÏı¾ØÕó±£´æÂ·¾¶
-outputfile2 = '../tmp/cm_test.xls' #²âÊÔÑù±¾»ìÏı¾ØÕó±£´æÂ·¾¶
-data = pd.read_csv(inputfile, encoding = 'gbk') #¶ÁÈ¡Êı¾İ£¬Ö¸¶¨±àÂëÎªgbk
+inputfile = '../data/moment.csv' #æ•°æ®æ–‡ä»¶
+outputfile1 = '../tmp/cm_train.xls' #è®­ç»ƒæ ·æœ¬æ··æ·†çŸ©é˜µä¿å­˜è·¯å¾„
+outputfile2 = '../tmp/cm_test.xls' #æµ‹è¯•æ ·æœ¬æ··æ·†çŸ©é˜µä¿å­˜è·¯å¾„
+data = pd.read_csv(inputfile, encoding = 'gbk') #è¯»å–æ•°æ®ï¼ŒæŒ‡å®šç¼–ç ä¸ºgbk
 data = data.as_matrix()
 
-from numpy.random import shuffle #ÒıÈëËæ»úº¯Êı
-shuffle(data) #Ëæ»ú´òÂÒÊı¾İ
-data_train = data[:int(0.8*len(data)), :] #Ñ¡È¡Ç°80%ÎªÑµÁ·Êı¾İ
-data_test = data[int(0.8*len(data)):, :] #Ñ¡È¡Ç°20%Îª²âÊÔÊı¾İ
+from numpy.random import shuffle #å¼•å…¥éšæœºå‡½æ•°
+shuffle(data) #éšæœºæ‰“ä¹±æ•°æ®
+data_train = data[:int(0.8*len(data)), :] #é€‰å–å‰80%ä¸ºè®­ç»ƒæ•°æ®
+data_test = data[int(0.8*len(data)):, :] #é€‰å–å‰20%ä¸ºæµ‹è¯•æ•°æ®
 
-#¹¹ÔìÌØÕ÷ºÍ±êÇ©
+#æ„é€ ç‰¹å¾å’Œæ ‡ç­¾
 x_train = data_train[:, 2:]*30
 y_train = data_train[:, 0].astype(int)
 x_test = data_test[:, 2:]*30
 y_test = data_test[:, 0].astype(int)
 
-#µ¼ÈëÄ£ĞÍÏà¹ØµÄº¯Êı£¬½¨Á¢²¢ÇÒÑµÁ·Ä£ĞÍ
+#å¯¼å…¥æ¨¡å‹ç›¸å…³çš„å‡½æ•°ï¼Œå»ºç«‹å¹¶ä¸”è®­ç»ƒæ¨¡å‹
 from sklearn import svm
 model = svm.SVC()
 model.fit(x_train, y_train)
 import pickle
 pickle.dump(model, open('../tmp/svm.model', 'wb'))
-#×îºóÒ»¾ä±£´æÄ£ĞÍ£¬ÒÔºó¿ÉÒÔÍ¨¹ıÏÂÃæÓï¾äÖØĞÂ¼ÓÔØÄ£ĞÍ£º
+#æœ€åä¸€å¥ä¿å­˜æ¨¡å‹ï¼Œä»¥åå¯ä»¥é€šè¿‡ä¸‹é¢è¯­å¥é‡æ–°åŠ è½½æ¨¡å‹ï¼š
 #model = pickle.load(open('../tmp/svm.model', 'rb'))
 
-#µ¼ÈëÊä³öÏà¹ØµÄ¿â£¬Éú³É»ìÏı¾ØÕó
+#å¯¼å…¥è¾“å‡ºç›¸å…³çš„åº“ï¼Œç”Ÿæˆæ··æ·†çŸ©é˜µ
 from sklearn import metrics
-cm_train = metrics.confusion_matrix(y_train, model.predict(x_train)) #ÑµÁ·Ñù±¾µÄ»ìÏı¾ØÕó
-cm_test = metrics.confusion_matrix(y_test, model.predict(x_test)) #²âÊÔÑù±¾µÄ»ìÏı¾ØÕó
+cm_train = metrics.confusion_matrix(y_train, model.predict(x_train)) #è®­ç»ƒæ ·æœ¬çš„æ··æ·†çŸ©é˜µ
+cm_test = metrics.confusion_matrix(y_test, model.predict(x_test)) #æµ‹è¯•æ ·æœ¬çš„æ··æ·†çŸ©é˜µ
 
-#±£´æ½á¹û
+#ä¿å­˜ç»“æœ
 pd.DataFrame(cm_train, index = range(1, 6), columns = range(1, 6)).to_excel(outputfile1)
 pd.DataFrame(cm_test, index = range(1, 6), columns = range(1, 6)).to_excel(outputfile2)

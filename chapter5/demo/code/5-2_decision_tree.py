@@ -1,26 +1,26 @@
 #-*- coding: utf-8 -*-
-#Ê¹ÓÃID3¾ö²ßÊ÷Ëã·¨Ô¤²âÏúÁ¿¸ßµÍ
+#ä½¿ç”¨ID3å†³ç­–æ ‘ç®—æ³•é¢„æµ‹é”€é‡é«˜ä½
 import pandas as pd
 
-#²ÎÊı³õÊ¼»¯
+#å‚æ•°åˆå§‹åŒ–
 inputfile = '../data/sales_data.xls'
-data = pd.read_excel(inputfile, index_col = u'ĞòºÅ') #µ¼ÈëÊı¾İ
+data = pd.read_excel(inputfile, index_col = u'åºå·') #å¯¼å…¥æ•°æ®
 
-#Êı¾İÊÇÀà±ğ±êÇ©£¬Òª½«Ëü×ª»»ÎªÊı¾İ
-#ÓÃ1À´±íÊ¾¡°ºÃ¡±¡¢¡°ÊÇ¡±¡¢¡°¸ß¡±ÕâÈı¸öÊôĞÔ£¬ÓÃ-1À´±íÊ¾¡°»µ¡±¡¢¡°·ñ¡±¡¢¡°µÍ¡±
-data[data == u'ºÃ'] = 1
-data[data == u'ÊÇ'] = 1
-data[data == u'¸ß'] = 1
+#æ•°æ®æ˜¯ç±»åˆ«æ ‡ç­¾ï¼Œè¦å°†å®ƒè½¬æ¢ä¸ºæ•°æ®
+#ç”¨1æ¥è¡¨ç¤ºâ€œå¥½â€ã€â€œæ˜¯â€ã€â€œé«˜â€è¿™ä¸‰ä¸ªå±æ€§ï¼Œç”¨-1æ¥è¡¨ç¤ºâ€œåâ€ã€â€œå¦â€ã€â€œä½â€
+data[data == u'å¥½'] = 1
+data[data == u'æ˜¯'] = 1
+data[data == u'é«˜'] = 1
 data[data != 1] = -1
 x = data.iloc[:,:3].as_matrix().astype(int)
 y = data.iloc[:,3].as_matrix().astype(int)
 
 from sklearn.tree import DecisionTreeClassifier as DTC
-dtc = DTC(criterion='entropy') #½¨Á¢¾ö²ßÊ÷Ä£ĞÍ£¬»ùÓÚĞÅÏ¢ìØ
-dtc.fit(x, y) #ÑµÁ·Ä£ĞÍ
+dtc = DTC(criterion='entropy') #å»ºç«‹å†³ç­–æ ‘æ¨¡å‹ï¼ŒåŸºäºä¿¡æ¯ç†µ
+dtc.fit(x, y) #è®­ç»ƒæ¨¡å‹
 
-#µ¼ÈëÏà¹Øº¯Êı£¬¿ÉÊÓ»¯¾ö²ßÊ÷¡£
-#µ¼³öµÄ½á¹ûÊÇÒ»¸ödotÎÄ¼ş£¬ĞèÒª°²×°Graphviz²ÅÄÜ½«Ëü×ª»»Îªpdf»òpngµÈ¸ñÊ½¡£
+#å¯¼å…¥ç›¸å…³å‡½æ•°ï¼Œå¯è§†åŒ–å†³ç­–æ ‘ã€‚
+#å¯¼å‡ºçš„ç»“æœæ˜¯ä¸€ä¸ªdotæ–‡ä»¶ï¼Œéœ€è¦å®‰è£…Graphvizæ‰èƒ½å°†å®ƒè½¬æ¢ä¸ºpdfæˆ–pngç­‰æ ¼å¼ã€‚
 from sklearn.tree import export_graphviz
 x = pd.DataFrame(x)
 from sklearn.externals.six import StringIO
