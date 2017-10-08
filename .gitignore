@@ -1,3 +1,8 @@
+# only for this project
+*.png
+tmp/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -12,7 +12,7 @@ data = pd.read_excel(inputfile, index_col='Id')  # 读取数据
 data_zs = 1.0 * (data - data.mean()) / data.std()  # 数据标准化
 
 from sklearn.cluster import KMeans
-model = KMeans(n_clusters=k, n_jobs=4, max_iter=iteration)  # 分为k类，并发数4
+model = KMeans(n_clusters=k, n_jobs=1, max_iter=iteration)  # 分为k类，并发数4
 model.fit(data_zs)  # 开始聚类
 
 # 简单打印结果

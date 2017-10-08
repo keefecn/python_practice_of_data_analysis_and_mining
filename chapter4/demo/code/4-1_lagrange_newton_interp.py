@@ -1,3 +1,4 @@
+﻿#-*- coding: utf-8 -*-
 # 拉格朗日插值代码
 import pandas as pd  # 导入数据分析库Pandas
 from scipy.interpolate import lagrange  # 导入拉格朗日插值函数

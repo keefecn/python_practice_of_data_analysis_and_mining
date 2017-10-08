@@ -19,8 +19,10 @@ def ployinterp_column(s, n, k=5):
 
 # 逐个元素判断是否需要插值
 for i in data.columns:
-    for j in range(len(data)):
+    for j in range(len(data)):     
         if (data[i].isnull())[j]:  # 如果为空即插值。
+            # print(data[i][j]), i,j, data[i].isnull()
             data[i][j] = ployinterp_column(data[i], j)
 
 data.to_excel(outputfile, header=None, index=False)  # 输出结果
+print('END')
