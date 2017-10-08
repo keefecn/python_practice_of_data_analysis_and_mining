@@ -2,6 +2,9 @@
 import numpy as np
 import matplotlib.pyplot as plt  # 导入Matplotlib
 
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
 x = np.linspace(0, 10, 1000)  # 作图的变量自变量
 y = np.sin(x) + 1  # 因变量y
 z = np.cos(x**2) + 1  # 因变量z

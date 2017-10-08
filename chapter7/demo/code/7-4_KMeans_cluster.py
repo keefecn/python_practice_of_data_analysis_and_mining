@@ -16,7 +16,7 @@ data = pd.read_excel(inputfile)  # 读取数据
 kmodel = KMeans(n_clusters=k, n_jobs=1)  
 kmodel.fit(data)  # 训练模型
 
-from cluster_plot import print_result, plot_cluster
-print_result(data, kmodel)
+from cluster_plot import print_cluster_result, plot_cluster
+print_cluster_result(data, kmodel)
 plot_cluster(data, kmodel)
 print('END')

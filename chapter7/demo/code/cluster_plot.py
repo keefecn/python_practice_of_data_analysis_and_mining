@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 画出特征雷达图，代码接KMeans_cluster.py
 
-def print_result(data, kmodel):
+def print_cluster_result(data, kmodel):
     import pandas as pd
     # 简单打印结果
     r1 = pd.Series(kmodel.labels_).value_counts()  # 统计各个类别的数目
@@ -16,7 +16,9 @@ def print_result(data, kmodel):
 def plot_cluster(data, kmodel):
     import numpy as np
     import matplotlib.pyplot as plt    
-    
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    # plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
     labels = data.columns  # 标签
     k = 5  # 数据个数
     plot_data = kmodel.cluster_centers_
